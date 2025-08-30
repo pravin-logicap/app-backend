@@ -2,6 +2,7 @@ import { Injectable, ConflictException, NotFoundException } from '@nestjs/common
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Role } from './role.schema';
+import { ALL_PERMISSIONS } from './permissions';
 
 export interface CreateRoleInput { roleId: string; name: string; permissions?: string[] }
 export interface UpdateRoleInput { name?: string; permissions?: string[]; isActive?: boolean }
@@ -13,6 +14,9 @@ export class RolesService {
   async create(input: CreateRoleInput): Promise<Role> {
     const exists = await this.roleModel.findOne({ roleId: input.roleId }).exec();
     if (exists) throw new ConflictException('roleId already exists');
+    if(!input.permissions && input.roleId === 'superadmin') {
+      input.permissions = ALL_PERMISSIONS as string[];
+    }
     const role = new this.roleModel({ roleId: input.roleId, name: input.name, permissions: input.permissions ?? [] });
     return role.save();
   }

@@ -14,6 +14,8 @@ const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
 const recruitments_module_1 = require("./recruitments/recruitments.module");
 const roles_module_1 = require("./roles/roles.module");
+const hr_module_1 = require("./hr/hr.module");
+const finance_module_1 = require("./finance/finance.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -31,6 +33,8 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             roles_module_1.RolesModule,
             recruitments_module_1.RecruitmentsModule,
+            hr_module_1.HRModule,
+            finance_module_1.FinanceModule,
         ],
     })
 ], AppModule);

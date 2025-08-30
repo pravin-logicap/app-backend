@@ -65,6 +65,8 @@ let UsersService = class UsersService {
             fullName: input.fullName,
             email: input.email.toLowerCase(),
             phone: input.phone,
+            roleId: input.roleId || 'employee',
+            isAdmin: input.isAdmin || false,
             passwordHash,
         });
         return user.save();

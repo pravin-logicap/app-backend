@@ -15,6 +15,7 @@ const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
 const config_1 = require("@nestjs/config");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
+    debug;
     constructor(config) {
         const secret = config.get('JWT_SECRET');
         if (!secret) {
@@ -25,8 +26,12 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
             ignoreExpiration: false,
             secretOrKey: secret,
         });
+        this.debug = (config.get('AUTH_DEBUG') ?? '').toLowerCase() === 'true';
     }
     async validate(payload) {
+        if (this.debug) {
+            common_1.Logger.log(`JWT decoded -> sub:${payload.sub} email:${payload.email} isAdmin:${!!payload.isAdmin} roleId:${payload.roleId ?? 'N/A'}`, 'JwtStrategy');
+        }
         return { userId: payload.sub, email: payload.email, isAdmin: !!payload.isAdmin, roleId: payload.roleId };
     }
 };

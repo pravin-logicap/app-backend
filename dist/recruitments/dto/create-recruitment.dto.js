@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateRecruitmentDto = void 0;
+const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateRecruitmentDto {
     title;
@@ -17,6 +18,9 @@ class CreateRecruitmentDto {
     status;
     applyUrl;
     publishedAt;
+    static _OPENAPI_METADATA_FACTORY() {
+        return { title: { required: true, type: () => String }, department: { required: false, type: () => String }, status: { required: false, type: () => Object, enum: ['OPEN', 'CLOSED', 'UPCOMING'] }, applyUrl: { required: false, type: () => String, format: "uri" }, publishedAt: { required: false, type: () => String } };
+    }
 }
 exports.CreateRecruitmentDto = CreateRecruitmentDto;
 __decorate([

@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RolesController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const roles_service_1 = require("./roles.service");
 const create_role_dto_1 = require("./dto/create-role.dto");
@@ -20,6 +21,7 @@ const update_role_dto_1 = require("./dto/update-role.dto");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const roles_guard_1 = require("./roles.guard");
 const roles_decorator_1 = require("./roles.decorator");
+const swagger_1 = require("@nestjs/swagger");
 let RolesController = class RolesController {
     service;
     constructor(service) {
@@ -45,6 +47,7 @@ exports.RolesController = RolesController;
 __decorate([
     (0, common_1.Post)(),
     (0, roles_decorator_1.Permissions)('roles:create'),
+    openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_role_dto_1.CreateRoleDto]),
@@ -53,6 +56,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, roles_decorator_1.Permissions)('roles:read'),
+    openapi.ApiResponse({ status: 200 }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -60,6 +64,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':roleId'),
     (0, roles_decorator_1.Permissions)('roles:read'),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('roleId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -68,6 +73,7 @@ __decorate([
 __decorate([
     (0, common_1.Patch)(':roleId'),
     (0, roles_decorator_1.Permissions)('roles:update'),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('roleId')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -75,6 +81,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RolesController.prototype, "update", null);
 exports.RolesController = RolesController = __decorate([
+    (0, swagger_1.ApiBearerAuth)('JWT'),
     (0, common_1.Controller)('roles'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     __metadata("design:paramtypes", [roles_service_1.RolesService])

@@ -12,4 +12,10 @@ export class RegisterDto {
 
   @MinLength(5, { message: 'Password must be at least 5 characters long' })
   password!: string;
+
+  @IsOptional()
+  roleId?: string;
+
+  @IsOptional()
+  isAdmin?: boolean;
 } 

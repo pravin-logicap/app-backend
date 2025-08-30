@@ -9,6 +9,8 @@ export interface CreateUserInput {
   email: string;
   phone?: string;
   password: string;
+  roleId?: string;  
+  isAdmin?: boolean;
 }
 
 @Injectable()
@@ -23,6 +25,8 @@ export class UsersService {
       fullName: input.fullName,
       email: input.email.toLowerCase(),
       phone: input.phone,
+      roleId: input.roleId || 'employee',
+      isAdmin: input.isAdmin || false,
       passwordHash,
     });
     return user.save();

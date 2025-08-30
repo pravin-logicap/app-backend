@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const role_schema_1 = require("./role.schema");
+const permissions_1 = require("./permissions");
 let RolesService = class RolesService {
     roleModel;
     constructor(roleModel) {
@@ -26,6 +27,9 @@ let RolesService = class RolesService {
         const exists = await this.roleModel.findOne({ roleId: input.roleId }).exec();
         if (exists)
             throw new common_1.ConflictException('roleId already exists');
+        if (!input.permissions && input.roleId === 'superadmin') {
+            input.permissions = permissions_1.ALL_PERMISSIONS;
+        }
         const role = new this.roleModel({ roleId: input.roleId, name: input.name, permissions: input.permissions ?? [] });
         return role.save();
     }

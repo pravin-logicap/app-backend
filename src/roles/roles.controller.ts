@@ -5,7 +5,10 @@ import { UpdateRoleDto } from './dto/update-role.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from './roles.guard';
 import { Permissions } from './roles.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+
+@ApiBearerAuth('JWT')
 @Controller('roles')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class RolesController {

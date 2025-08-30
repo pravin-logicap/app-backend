@@ -10,12 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterDto = void 0;
+const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class RegisterDto {
     fullName;
     email;
     phone;
     password;
+    roleId;
+    isAdmin;
+    static _OPENAPI_METADATA_FACTORY() {
+        return { fullName: { required: true, type: () => String }, email: { required: true, type: () => String, format: "email" }, phone: { required: false, type: () => String }, password: { required: true, type: () => String, minLength: 5 }, roleId: { required: false, type: () => String }, isAdmin: { required: false, type: () => Boolean } };
+    }
 }
 exports.RegisterDto = RegisterDto;
 __decorate([
@@ -34,4 +40,12 @@ __decorate([
     (0, class_validator_1.MinLength)(5, { message: 'Password must be at least 5 characters long' }),
     __metadata("design:type", String)
 ], RegisterDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], RegisterDto.prototype, "roleId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], RegisterDto.prototype, "isAdmin", void 0);
 //# sourceMappingURL=register.dto.js.map
